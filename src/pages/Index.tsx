@@ -38,7 +38,43 @@ const Index = () => {
     <div>
       {/* Hero */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-background" />
+        <div className="absolute inset-0 bg-background">
+          {/* Decorative grid */}
+          <div className="absolute inset-0 opacity-[0.04]" style={{
+            backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
+            backgroundSize: '80px 80px'
+          }} />
+          {/* Floating design shapes */}
+          <motion.div
+            className="absolute top-[15%] right-[10%] w-40 h-40 rounded-full border border-primary/10"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div
+            className="absolute top-[60%] right-[20%] w-24 h-24 border border-primary/10 rotate-45"
+            animate={{ rotate: [45, 405] }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div
+            className="absolute top-[25%] left-[60%] w-64 h-64 rounded-full bg-primary/[0.03] blur-3xl"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.03, 0.06, 0.03] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-[20%] left-[5%] w-32 h-32 rounded-full border border-primary/10"
+            animate={{ y: [-10, 10, -10] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          />
+          {/* Pen tool path */}
+          <svg className="absolute top-[30%] left-[15%] w-48 h-48 opacity-[0.06] text-primary" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
+            <path d="M10 90 L50 10 L90 90 Z" />
+            <circle cx="50" cy="10" r="3" />
+            <circle cx="10" cy="90" r="3" />
+            <circle cx="90" cy="90" r="3" />
+          </svg>
+          {/* Gradient mesh accent */}
+          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-primary/[0.05] via-transparent to-transparent" />
+        </div>
         <div className="container relative z-10 py-20">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
