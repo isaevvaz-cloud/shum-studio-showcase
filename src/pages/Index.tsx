@@ -38,10 +38,7 @@ const Index = () => {
     <div>
       {/* Hero */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
-        </div>
+        <div className="absolute inset-0 bg-background" />
         <div className="container relative z-10 py-20">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
