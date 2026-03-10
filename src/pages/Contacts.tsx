@@ -1,11 +1,9 @@
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Send } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const contacts = [
   { icon: Mail, label: "Email", value: "hello@shum.studio", href: "mailto:hello@shum.studio" },
-  { icon: Phone, label: "Телефон", value: "+7 (999) 123-45-67", href: "tel:+79991234567" },
   { icon: Send, label: "Telegram", value: "@shum_studio", href: "https://t.me/shum_studio" },
-  { icon: MapPin, label: "Адрес", value: "Москва, Россия", href: "#" },
 ];
 
 const Contacts = () => {

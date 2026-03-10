@@ -111,7 +111,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               <h4 className="font-display font-semibold text-foreground mb-4">Контакты</h4>
               <div className="flex flex-col gap-2 text-sm text-muted-foreground">
                 <span>hello@shum.studio</span>
-                <span>+7 (999) 123-45-67</span>
                 <span>Telegram: @shum_studio</span>
               </div>
             </div>
