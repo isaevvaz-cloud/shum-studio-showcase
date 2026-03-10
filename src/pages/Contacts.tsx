@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Send } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const contacts = [
