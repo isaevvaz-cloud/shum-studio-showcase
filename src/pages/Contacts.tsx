@@ -2,7 +2,7 @@ import { Mail, Send } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const contacts = [
-  { icon: Mail, label: "Email", value: "hello@shum.studio", href: "mailto:hello@shum.studio" },
+  { icon: Mail, label: "Email", value: "isaev.vaz@yandex.ru", href: "mailto:isaev.vaz@yandex.ru" },
   { icon: Send, label: "Telegram", value: "@shum_studio", href: "https://t.me/shum_studio" },
 ];
 
