@@ -110,7 +110,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <div>
               <h4 className="font-display font-semibold text-foreground mb-4">Контакты</h4>
               <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-                <span>hello@shum.studio</span>
+                <span>isaev.vaz@yandex.ru</span>
                 <span>Telegram: @shum_studio</span>
               </div>
             </div>
