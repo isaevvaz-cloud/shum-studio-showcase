@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Send } from "lucide-react";
+import { Send, RefreshCw } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
+import { supabase } from "@/integrations/supabase/client";
 
 const serviceOptions = [
   "Инфографика для маркетплейсов",
@@ -13,19 +14,59 @@ const serviceOptions = [
   "Другое",
 ];
 
+function generateCaptcha() {
+  const a = Math.floor(Math.random() * 10) + 1;
+  const b = Math.floor(Math.random() * 10) + 1;
+  return { question: `${a} + ${b} = ?`, answer: a + b };
+}
+
 const Order = () => {
   const [selectedService, setSelectedService] = useState("");
   const [formData, setFormData] = useState({ name: "", contact: "", message: "" });
+  const [captcha, setCaptcha] = useState(generateCaptcha);
+  const [captchaInput, setCaptchaInput] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const refreshCaptcha = useCallback(() => {
+    setCaptcha(generateCaptcha());
+    setCaptchaInput("");
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.contact || !selectedService) {
       toast.error("Пожалуйста, заполните все обязательные поля");
       return;
     }
-    toast.success("Заявка отправлена! Мы свяжемся с вами в ближайшее время.");
-    setFormData({ name: "", contact: "", message: "" });
-    setSelectedService("");
+    if (parseInt(captchaInput) !== captcha.answer) {
+      toast.error("Неверный ответ на капчу");
+      refreshCaptcha();
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-telegram", {
+        body: {
+          name: formData.name.trim().slice(0, 100),
+          contact: formData.contact.trim().slice(0, 200),
+          service: selectedService,
+          message: formData.message.trim().slice(0, 1000),
+        },
+      });
+
+      if (error) throw error;
+
+      toast.success("Заявка отправлена! Мы свяжемся с вами в ближайшее время.");
+      setFormData({ name: "", contact: "", message: "" });
+      setSelectedService("");
+      refreshCaptcha();
+    } catch (err) {
+      console.error(err);
+      toast.error("Ошибка отправки. Попробуйте позже или напишите в Telegram.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -74,6 +115,7 @@ const Order = () => {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Как к вам обращаться"
                 className="bg-card border-border/50 focus:border-primary/50 h-12"
+                maxLength={100}
               />
             </div>
 
@@ -86,6 +128,7 @@ const Order = () => {
                 onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
                 placeholder="Telegram, WhatsApp или email"
                 className="bg-card border-border/50 focus:border-primary/50 h-12"
+                maxLength={200}
               />
             </div>
 
@@ -99,11 +142,41 @@ const Order = () => {
                 placeholder="Расскажите подробнее о задаче, сроках, бюджете..."
                 rows={5}
                 className="bg-card border-border/50 focus:border-primary/50 resize-none"
+                maxLength={1000}
               />
             </div>
 
-            <Button type="submit" size="lg" className="w-full font-display font-semibold text-base h-14">
-              Отправить заявку <Send className="ml-2 h-5 w-5" />
+            {/* Captcha */}
+            <div>
+              <label className="block font-display text-sm font-semibold text-foreground mb-2">
+                Проверка: {captcha.question}
+              </label>
+              <div className="flex gap-3 items-center">
+                <Input
+                  value={captchaInput}
+                  onChange={(e) => setCaptchaInput(e.target.value)}
+                  placeholder="Ваш ответ"
+                  className="bg-card border-border/50 focus:border-primary/50 h-12 w-40"
+                  type="number"
+                />
+                <button
+                  type="button"
+                  onClick={refreshCaptcha}
+                  className="p-2 rounded-lg text-muted-foreground hover:text-foreground transition-colors"
+                  title="Обновить капчу"
+                >
+                  <RefreshCw className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              size="lg"
+              className="w-full font-display font-semibold text-base h-14"
+              disabled={submitting}
+            >
+              {submitting ? "Отправка..." : "Отправить заявку"} <Send className="ml-2 h-5 w-5" />
             </Button>
           </form>
         </AnimatedSection>
