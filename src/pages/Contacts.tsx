@@ -50,16 +50,16 @@ const Contacts = () => {
               Предпочитаете писать?
             </h2>
             <p className="mt-3 text-muted-foreground max-w-md mx-auto">
-              Напишите нам в Telegram — мы ответим в течение часа в рабочее время.
+              Напишите нам в VK — мы ответим в течение часа в рабочее время.
             </p>
             <a
-              href="https://t.me/shum_studio"
+              href="https://vk.com/designstudioshum"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 mt-6 px-8 py-3 rounded-lg bg-primary text-primary-foreground font-display font-semibold transition-all hover:opacity-90"
             >
-              <Send className="w-5 h-5" />
-              Написать в Telegram
+              <VkIcon className="w-5 h-5" />
+              Написать в VK
             </a>
           </div>
         </AnimatedSection>

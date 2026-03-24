@@ -111,7 +111,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               <h4 className="font-display font-semibold text-foreground mb-4">Контакты</h4>
               <div className="flex flex-col gap-2 text-sm text-muted-foreground">
                 <span>isaev.vaz@yandex.ru</span>
-                <span>Telegram: @shum_studio</span>
+                <span>VK: <a href="https://vk.com/designstudioshum" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">designstudioshum</a></span>
               </div>
             </div>
           </div>
