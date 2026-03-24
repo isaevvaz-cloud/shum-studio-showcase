@@ -25,7 +25,7 @@ const Order = () => {
             className="inline-block mt-10"
           >
             <Button size="lg" className="font-display font-semibold text-base h-14 px-10">
-              Заказать дизайн <Send className="ml-2 h-5 w-5" />
+              Заказать дизайн <VkIcon className="ml-2 h-5 w-5" />
             </Button>
           </a>
         </AnimatedSection>
