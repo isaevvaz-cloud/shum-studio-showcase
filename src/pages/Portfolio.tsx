@@ -69,9 +69,13 @@ const Portfolio = () => {
   }, []);
 
   const allItems = [
-    ...staticPortfolio.map((p) => ({ id: p.id, url: p.url, text: p.text })),
-    ...photos.map((p) => ({ id: p.id, url: p.url, text: p.text })),
+    ...staticPortfolio.map((p) => ({ id: p.id, url: p.url, text: p.text, category: p.category })),
+    ...photos.map((p) => ({ id: p.id, url: p.url, text: p.text, category: "infographics" as Category })),
   ];
+
+  const filteredItems = activeCategory === "all"
+    ? allItems
+    : allItems.filter((item) => item.category === activeCategory);
 
   return (
     <div className="py-20 md:py-28">
@@ -85,7 +89,23 @@ const Portfolio = () => {
           </p>
         </AnimatedSection>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-8 flex flex-wrap justify-center gap-2">
+          {categories.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setActiveCategory(cat.key)}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                activeCategory === cat.key
+                  ? "bg-primary text-primary-foreground shadow-lg"
+                  : "bg-card border border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/30"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading &&
             photos.length === 0 &&
             staticPortfolio.length === 0 &&
