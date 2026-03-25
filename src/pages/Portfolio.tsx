@@ -96,13 +96,6 @@ const Portfolio = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                {photo.text && (
-                  <div className="p-5">
-                    <h3 className="font-display font-semibold text-foreground line-clamp-2">
-                      {photo.text}
-                    </h3>
-                  </div>
-                )}
               </div>
             </AnimatedSection>
           ))}
