@@ -1,26 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
-import portfolio1 from "@/assets/portfolio-1.jpg";
-import portfolio2 from "@/assets/portfolio-2.jpg";
-import portfolio3 from "@/assets/portfolio-3.jpg";
-import portfolio4 from "@/assets/portfolio-4.jpg";
-import portfolio5 from "@/assets/portfolio-5.jpg";
-import portfolio6 from "@/assets/portfolio-6.jpg";
+import { supabase } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const categories = ["Все", "Инфографика", "Стримы", "Баннеры"];
-
-const projects = [
-  { img: portfolio1, title: "Карточка товара — электроника", category: "Инфографика" },
-  { img: portfolio2, title: "Twitch оверлей — киберпанк", category: "Стримы" },
-  { img: portfolio3, title: "Промо-баннер распродажа", category: "Баннеры" },
-  { img: portfolio4, title: "Инфографика — добавки", category: "Инфографика" },
-  { img: portfolio5, title: "Карточка товара — наушники", category: "Инфографика" },
-  { img: portfolio6, title: "Стрим-пак — полный комплект", category: "Стримы" },
-];
+interface VkPhoto {
+  id: number;
+  url: string;
+  width: number;
+  height: number;
+  text: string;
+  date: number;
+}
 
 const Portfolio = () => {
-  const [active, setActive] = useState("Все");
-  const filtered = active === "Все" ? projects : projects.filter((p) => p.category === active);
+  const [photos, setPhotos] = useState<VkPhoto[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<VkPhoto | null>(null);
+
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      try {
+        const { data, error: fnError } = await supabase.functions.invoke("vk-album-photos", {
+          method: "GET",
+        });
+
+        if (fnError) throw fnError;
+        if (data?.error) throw new Error(data.error);
+
+        setPhotos(data.photos || []);
+      } catch (err: any) {
+        console.error("Failed to load portfolio:", err);
+        setError("Не удалось загрузить портфолио");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPhotos();
+  }, []);
 
   return (
     <div className="py-20 md:py-28">
@@ -34,44 +52,61 @@ const Portfolio = () => {
           </p>
         </AnimatedSection>
 
-        <AnimatedSection className="mt-10">
-          <div className="flex justify-center gap-2 flex-wrap">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActive(cat)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
-                  active === cat
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-secondary text-secondary-foreground hover:bg-muted"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </AnimatedSection>
-
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((project, i) => (
-            <AnimatedSection key={project.title + i} delay={i * 0.1}>
-              <div className="group rounded-2xl overflow-hidden bg-card border border-border/50 card-shadow hover:border-primary/30 transition-all duration-300">
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src={project.img}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+          {loading &&
+            Array.from({ length: 6 }).map((_, i) => (
+              <Skeleton key={i} className="aspect-square rounded-2xl" />
+            ))}
+
+          {error && (
+            <div className="col-span-full text-center text-muted-foreground py-12">
+              {error}
+            </div>
+          )}
+
+          {!loading &&
+            !error &&
+            photos.map((photo, i) => (
+              <AnimatedSection key={photo.id} delay={i * 0.05}>
+                <div
+                  className="group rounded-2xl overflow-hidden bg-card border border-border/50 card-shadow hover:border-primary/30 transition-all duration-300 cursor-pointer"
+                  onClick={() => setSelectedPhoto(photo)}
+                >
+                  <div className="aspect-square overflow-hidden">
+                    <img
+                      src={photo.url}
+                      alt={photo.text || "Работа из портфолио"}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  {photo.text && (
+                    <div className="p-5">
+                      <h3 className="font-display font-semibold text-foreground line-clamp-2">
+                        {photo.text}
+                      </h3>
+                    </div>
+                  )}
                 </div>
-                <div className="p-5">
-                  <span className="text-xs font-medium text-primary">{project.category}</span>
-                  <h3 className="mt-1 font-display font-semibold text-foreground">{project.title}</h3>
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
+              </AnimatedSection>
+            ))}
         </div>
       </div>
+
+      {/* Lightbox */}
+      {selectedPhoto && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 cursor-pointer"
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <img
+            src={selectedPhoto.url}
+            alt={selectedPhoto.text || "Работа из портфолио"}
+            className="max-w-full max-h-[90vh] object-contain rounded-lg"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 };
