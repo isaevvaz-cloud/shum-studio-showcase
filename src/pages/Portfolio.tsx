@@ -11,6 +11,16 @@ import img85 from "@/assets/portfolio/85.jpg";
 import img88 from "@/assets/portfolio/88.jpg";
 import img89 from "@/assets/portfolio/89.jpg";
 
+type Category = "all" | "infographics" | "vk" | "banners" | "streams";
+
+const categories: { key: Category; label: string }[] = [
+  { key: "all", label: "Портфолио" },
+  { key: "infographics", label: "Инфографика" },
+  { key: "vk", label: "Оформление группы вк" },
+  { key: "banners", label: "Баннеры" },
+  { key: "streams", label: "Оформление стримов" },
+];
+
 interface VkPhoto {
   id: number;
   url: string;
@@ -21,13 +31,13 @@ interface VkPhoto {
 }
 
 const staticPortfolio = [
-  { id: 81, url: img81, text: "Крючки для ванной" },
-  { id: 82, url: img82, text: "Apple iPhone 17 Pro Max" },
-  { id: 83, url: img83, text: "ТВ приставка Mi Box S 3nd Gen" },
-  { id: 84, url: img84, text: "Молоток универсальный" },
-  { id: 85, url: img85, text: "Кронштейн для ТВ" },
-  { id: 88, url: img88, text: "Зарядное устройство UGREEN 65W" },
-  { id: 89, url: img89, text: "Xiaomi BE7000 роутер" },
+  { id: 81, url: img81, text: "Крючки для ванной", category: "infographics" as Category },
+  { id: 82, url: img82, text: "Apple iPhone 17 Pro Max", category: "infographics" as Category },
+  { id: 83, url: img83, text: "ТВ приставка Mi Box S 3nd Gen", category: "infographics" as Category },
+  { id: 84, url: img84, text: "Молоток универсальный", category: "infographics" as Category },
+  { id: 85, url: img85, text: "Кронштейн для ТВ", category: "infographics" as Category },
+  { id: 88, url: img88, text: "Зарядное устройство UGREEN 65W", category: "infographics" as Category },
+  { id: 89, url: img89, text: "Xiaomi BE7000 роутер", category: "infographics" as Category },
 ];
 
 const Portfolio = () => {
@@ -35,6 +45,7 @@ const Portfolio = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedPhoto, setSelectedPhoto] = useState<{ url: string; text: string } | null>(null);
+  const [activeCategory, setActiveCategory] = useState<Category>("all");
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -58,9 +69,13 @@ const Portfolio = () => {
   }, []);
 
   const allItems = [
-    ...staticPortfolio.map((p) => ({ id: p.id, url: p.url, text: p.text })),
-    ...photos.map((p) => ({ id: p.id, url: p.url, text: p.text })),
+    ...staticPortfolio.map((p) => ({ id: p.id, url: p.url, text: p.text, category: p.category })),
+    ...photos.map((p) => ({ id: p.id, url: p.url, text: p.text, category: "infographics" as Category })),
   ];
+
+  const filteredItems = activeCategory === "all"
+    ? allItems
+    : allItems.filter((item) => item.category === activeCategory);
 
   return (
     <div className="py-20 md:py-28">
@@ -74,7 +89,23 @@ const Portfolio = () => {
           </p>
         </AnimatedSection>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-8 flex flex-wrap justify-center gap-2">
+          {categories.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setActiveCategory(cat.key)}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                activeCategory === cat.key
+                  ? "bg-primary text-primary-foreground shadow-lg"
+                  : "bg-card border border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/30"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading &&
             photos.length === 0 &&
             staticPortfolio.length === 0 &&
@@ -82,7 +113,7 @@ const Portfolio = () => {
               <Skeleton key={i} className="aspect-[3/4] rounded-2xl" />
             ))}
 
-          {allItems.map((photo, i) => (
+          {filteredItems.map((photo, i) => (
             <AnimatedSection key={photo.id} delay={i * 0.05}>
               <div
                 className="group rounded-2xl overflow-hidden bg-card border border-border/50 card-shadow hover:border-primary/30 transition-all duration-300 cursor-pointer"
