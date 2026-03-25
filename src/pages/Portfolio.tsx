@@ -113,7 +113,7 @@ const Portfolio = () => {
               <Skeleton key={i} className="aspect-[3/4] rounded-2xl" />
             ))}
 
-          {allItems.map((photo, i) => (
+          {filteredItems.map((photo, i) => (
             <AnimatedSection key={photo.id} delay={i * 0.05}>
               <div
                 className="group rounded-2xl overflow-hidden bg-card border border-border/50 card-shadow hover:border-primary/30 transition-all duration-300 cursor-pointer"
