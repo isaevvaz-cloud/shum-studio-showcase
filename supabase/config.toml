@@ -2,3 +2,6 @@ project_id = "xrjexegwlptaglinaxqa"
 
 [functions.send-telegram]
 verify_jwt = false
+
+[functions.vk-album-photos]
+verify_jwt = false
