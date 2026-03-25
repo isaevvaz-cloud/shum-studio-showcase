@@ -11,6 +11,16 @@ import img85 from "@/assets/portfolio/85.jpg";
 import img88 from "@/assets/portfolio/88.jpg";
 import img89 from "@/assets/portfolio/89.jpg";
 
+type Category = "all" | "infographics" | "vk" | "banners" | "streams";
+
+const categories: { key: Category; label: string }[] = [
+  { key: "all", label: "Портфолио" },
+  { key: "infographics", label: "Инфографика" },
+  { key: "vk", label: "Оформление группы вк" },
+  { key: "banners", label: "Баннеры" },
+  { key: "streams", label: "Оформление стримов" },
+];
+
 interface VkPhoto {
   id: number;
   url: string;
@@ -21,13 +31,13 @@ interface VkPhoto {
 }
 
 const staticPortfolio = [
-  { id: 81, url: img81, text: "Крючки для ванной" },
-  { id: 82, url: img82, text: "Apple iPhone 17 Pro Max" },
-  { id: 83, url: img83, text: "ТВ приставка Mi Box S 3nd Gen" },
-  { id: 84, url: img84, text: "Молоток универсальный" },
-  { id: 85, url: img85, text: "Кронштейн для ТВ" },
-  { id: 88, url: img88, text: "Зарядное устройство UGREEN 65W" },
-  { id: 89, url: img89, text: "Xiaomi BE7000 роутер" },
+  { id: 81, url: img81, text: "Крючки для ванной", category: "infographics" as Category },
+  { id: 82, url: img82, text: "Apple iPhone 17 Pro Max", category: "infographics" as Category },
+  { id: 83, url: img83, text: "ТВ приставка Mi Box S 3nd Gen", category: "infographics" as Category },
+  { id: 84, url: img84, text: "Молоток универсальный", category: "infographics" as Category },
+  { id: 85, url: img85, text: "Кронштейн для ТВ", category: "infographics" as Category },
+  { id: 88, url: img88, text: "Зарядное устройство UGREEN 65W", category: "infographics" as Category },
+  { id: 89, url: img89, text: "Xiaomi BE7000 роутер", category: "infographics" as Category },
 ];
 
 const Portfolio = () => {
@@ -35,6 +45,7 @@ const Portfolio = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedPhoto, setSelectedPhoto] = useState<{ url: string; text: string } | null>(null);
+  const [activeCategory, setActiveCategory] = useState<Category>("all");
 
   useEffect(() => {
     const fetchPhotos = async () => {
