@@ -13,6 +13,12 @@ import img88 from "@/assets/portfolio/88.jpg";
 import img65 from "@/assets/portfolio/65.jpg";
 import img72 from "@/assets/portfolio/72.jpg";
 import img89 from "@/assets/portfolio/89.jpg";
+import img1_6 from "@/assets/portfolio/1_6.jpg";
+import img1_2 from "@/assets/portfolio/1_2.jpg";
+import img2_2 from "@/assets/portfolio/2_2.jpg";
+import img2_1 from "@/assets/portfolio/2_1.jpg";
+import img3_2 from "@/assets/portfolio/3_2.jpg";
+import img3_1 from "@/assets/portfolio/3_1.jpg";
 
 type Category = "all" | "infographics" | "vk" | "banners" | "streams";
 
