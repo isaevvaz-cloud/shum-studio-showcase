@@ -19,6 +19,8 @@ import img2_2 from "@/assets/portfolio/2_2.jpg";
 import img2_1 from "@/assets/portfolio/2_1.jpg";
 import img3_2 from "@/assets/portfolio/3_2.jpg";
 import img3_1 from "@/assets/portfolio/3_1.jpg";
+import imgBanner1 from "@/assets/portfolio/banner_1.jpg";
+import imgBanner4 from "@/assets/portfolio/banner_4.jpg";
 
 type Category = "all" | "infographics" | "vk" | "banners" | "streams";
 
@@ -53,6 +55,8 @@ const staticPortfolio = [
   { id: 21, url: img2_1, text: "ЖК Новоянино", category: "vk" as Category },
   { id: 32, url: img3_2, text: "Туры по Кавказу аватар", category: "vk" as Category },
   { id: 31, url: img3_1, text: "Туры по Кавказу баннер", category: "vk" as Category },
+  { id: 101, url: imgBanner1, text: "ЖК Театрал", category: "banners" as Category },
+  { id: 102, url: imgBanner4, text: "Школа фитнес-тренеров", category: "banners" as Category },
 ];
 
 const Portfolio = () => {
