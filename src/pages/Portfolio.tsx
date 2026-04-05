@@ -41,8 +41,6 @@ const staticPortfolio = [
   { id: 85, url: img85, text: "Кронштейн для ТВ", category: "infographics" as Category },
   { id: 88, url: img88, text: "Зарядное устройство UGREEN 65W", category: "infographics" as Category },
   { id: 89, url: img89, text: "Xiaomi BE7000 роутер", category: "infographics" as Category },
-  { id: 65, url: img65, text: "Navitel R67 2K", category: "vk" as Category },
-  { id: 72, url: img72, text: "Osmo Pocket 3", category: "vk" as Category },
 ];
 
 const Portfolio = () => {
