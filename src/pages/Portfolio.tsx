@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import img81 from "@/assets/portfolio/81.jpg";
 import img82 from "@/assets/portfolio/82.jpg";
@@ -12,7 +13,6 @@ import img88 from "@/assets/portfolio/88.jpg";
 import img65 from "@/assets/portfolio/65.jpg";
 import img72 from "@/assets/portfolio/72.jpg";
 import img89 from "@/assets/portfolio/89.jpg";
-
 
 type Category = "all" | "infographics" | "vk" | "banners" | "streams";
 
@@ -51,6 +51,7 @@ const Portfolio = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedPhoto, setSelectedPhoto] = useState<{ url: string; text: string } | null>(null);
   const [activeCategory, setActiveCategory] = useState<Category>("all");
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -82,6 +83,15 @@ const Portfolio = () => {
     ? allItems
     : allItems.filter((item) => item.category === activeCategory);
 
+  const scroll = (direction: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const scrollAmount = scrollRef.current.clientWidth * 0.8;
+    scrollRef.current.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="py-20 md:py-28">
       <div className="container">
@@ -110,31 +120,59 @@ const Portfolio = () => {
           ))}
         </div>
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {loading &&
-            photos.length === 0 &&
-            staticPortfolio.length === 0 &&
-            Array.from({ length: 6 }).map((_, i) => (
-              <Skeleton key={i} className="aspect-[3/4] rounded-2xl" />
-            ))}
+        <div className="mt-8 relative group/carousel">
+          {/* Left arrow */}
+          <button
+            onClick={() => scroll("left")}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-background/80 backdrop-blur border border-border/50 flex items-center justify-center text-foreground opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-primary-foreground -translate-x-1/2"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
 
-          {filteredItems.map((photo, i) => (
-            <AnimatedSection key={photo.id} delay={i * 0.05}>
+          {/* Right arrow */}
+          <button
+            onClick={() => scroll("right")}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-background/80 backdrop-blur border border-border/50 flex items-center justify-center text-foreground opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-primary-foreground translate-x-1/2"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
+          {/* Scrollable carousel */}
+          <div
+            ref={scrollRef}
+            className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 scrollbar-hide"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {loading &&
+              photos.length === 0 &&
+              staticPortfolio.length === 0 &&
+              Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="flex-shrink-0 w-[280px] md:w-[320px] lg:w-[360px]">
+                  <Skeleton className="aspect-[3/4] rounded-2xl" />
+                </div>
+              ))}
+
+            {filteredItems.map((photo) => (
               <div
-                className="group rounded-2xl overflow-hidden bg-card border border-border/50 card-shadow hover:border-primary/30 transition-all duration-300 cursor-pointer"
-                onClick={() => setSelectedPhoto(photo)}
+                key={photo.id}
+                className="flex-shrink-0 w-[280px] md:w-[320px] lg:w-[360px] snap-start"
               >
-                <div className="aspect-[3/4] overflow-hidden">
-                  <img
-                    src={photo.url}
-                    alt={photo.text || "Работа из портфолио"}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                <div
+                  className="group rounded-2xl overflow-hidden bg-card border border-border/50 card-shadow hover:border-primary/30 transition-all duration-300 cursor-pointer"
+                  onClick={() => setSelectedPhoto(photo)}
+                >
+                  <div className="aspect-[3/4] overflow-hidden">
+                    <img
+                      src={photo.url}
+                      alt={photo.text || "Работа из портфолио"}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
                 </div>
               </div>
-            </AnimatedSection>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
