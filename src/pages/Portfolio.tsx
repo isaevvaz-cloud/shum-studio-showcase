@@ -9,7 +9,10 @@ import img83 from "@/assets/portfolio/83.jpg";
 import img84 from "@/assets/portfolio/84.jpg";
 import img85 from "@/assets/portfolio/85.jpg";
 import img88 from "@/assets/portfolio/88.jpg";
+import img65 from "@/assets/portfolio/65.jpg";
+import img72 from "@/assets/portfolio/72.jpg";
 import img89 from "@/assets/portfolio/89.jpg";
+
 
 type Category = "all" | "infographics" | "vk" | "banners" | "streams";
 
@@ -38,6 +41,8 @@ const staticPortfolio = [
   { id: 85, url: img85, text: "Кронштейн для ТВ", category: "infographics" as Category },
   { id: 88, url: img88, text: "Зарядное устройство UGREEN 65W", category: "infographics" as Category },
   { id: 89, url: img89, text: "Xiaomi BE7000 роутер", category: "infographics" as Category },
+  { id: 65, url: img65, text: "Navitel R67 2K", category: "vk" as Category },
+  { id: 72, url: img72, text: "Osmo Pocket 3", category: "vk" as Category },
 ];
 
 const Portfolio = () => {
