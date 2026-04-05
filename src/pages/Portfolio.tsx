@@ -47,6 +47,12 @@ const staticPortfolio = [
   { id: 85, url: img85, text: "Кронштейн для ТВ", category: "infographics" as Category },
   { id: 88, url: img88, text: "Зарядное устройство UGREEN 65W", category: "infographics" as Category },
   { id: 89, url: img89, text: "Xiaomi BE7000 роутер", category: "infographics" as Category },
+  { id: 16, url: img1_6, text: "Apple Shop баннер", category: "vk" as Category },
+  { id: 12, url: img1_2, text: "Apple Shop аватар", category: "vk" as Category },
+  { id: 22, url: img2_2, text: "ЖК Курортный баннер", category: "vk" as Category },
+  { id: 21, url: img2_1, text: "ЖК Новоянино", category: "vk" as Category },
+  { id: 32, url: img3_2, text: "Туры по Кавказу аватар", category: "vk" as Category },
+  { id: 31, url: img3_1, text: "Туры по Кавказу баннер", category: "vk" as Category },
 ];
 
 const Portfolio = () => {
