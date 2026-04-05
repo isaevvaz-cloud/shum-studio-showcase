@@ -19,6 +19,8 @@ import img2_2 from "@/assets/portfolio/2_2.jpg";
 import img2_1 from "@/assets/portfolio/2_1.jpg";
 import img3_2 from "@/assets/portfolio/3_2.jpg";
 import img3_1 from "@/assets/portfolio/3_1.jpg";
+import imgBanner1 from "@/assets/portfolio/banner_1.jpg";
+import imgBanner4 from "@/assets/portfolio/banner_4.jpg";
 
 type Category = "all" | "infographics" | "vk" | "banners" | "streams";
 
