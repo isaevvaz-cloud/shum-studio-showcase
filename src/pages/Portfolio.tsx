@@ -13,6 +13,12 @@ import img88 from "@/assets/portfolio/88.jpg";
 import img65 from "@/assets/portfolio/65.jpg";
 import img72 from "@/assets/portfolio/72.jpg";
 import img89 from "@/assets/portfolio/89.jpg";
+import img1_6 from "@/assets/portfolio/1_6.jpg";
+import img1_2 from "@/assets/portfolio/1_2.jpg";
+import img2_2 from "@/assets/portfolio/2_2.jpg";
+import img2_1 from "@/assets/portfolio/2_1.jpg";
+import img3_2 from "@/assets/portfolio/3_2.jpg";
+import img3_1 from "@/assets/portfolio/3_1.jpg";
 
 type Category = "all" | "infographics" | "vk" | "banners" | "streams";
 
@@ -41,6 +47,12 @@ const staticPortfolio = [
   { id: 85, url: img85, text: "Кронштейн для ТВ", category: "infographics" as Category },
   { id: 88, url: img88, text: "Зарядное устройство UGREEN 65W", category: "infographics" as Category },
   { id: 89, url: img89, text: "Xiaomi BE7000 роутер", category: "infographics" as Category },
+  { id: 16, url: img1_6, text: "Apple Shop баннер", category: "vk" as Category },
+  { id: 12, url: img1_2, text: "Apple Shop аватар", category: "vk" as Category },
+  { id: 22, url: img2_2, text: "ЖК Курортный баннер", category: "vk" as Category },
+  { id: 21, url: img2_1, text: "ЖК Новоянино", category: "vk" as Category },
+  { id: 32, url: img3_2, text: "Туры по Кавказу аватар", category: "vk" as Category },
+  { id: 31, url: img3_1, text: "Туры по Кавказу баннер", category: "vk" as Category },
 ];
 
 const Portfolio = () => {
