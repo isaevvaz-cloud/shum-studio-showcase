@@ -113,8 +113,9 @@ const Portfolio = () => {
   }, []);
 
   const allItems = [
-    ...staticPortfolio.map((p) => ({ id: p.id, url: p.url, text: p.text, category: p.category })),
-    ...photos.map((p) => ({ id: p.id, url: p.url, text: p.text, category: "infographics" as Category })),
+    ...staticPortfolio.map((p) => ({ id: String(p.id), url: p.url, text: p.text, category: p.category })),
+    ...dbItems,
+    ...photos.map((p) => ({ id: String(p.id), url: p.url, text: p.text, category: "infographics" as Category })),
   ];
 
   const filteredItems = activeCategory === "all"
