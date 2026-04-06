@@ -179,7 +179,7 @@ const Portfolio = () => {
                   className="group rounded-2xl overflow-hidden bg-card border border-border/50 card-shadow hover:border-primary/30 transition-all duration-300 cursor-pointer"
                   onClick={() => setSelectedPhoto(photo)}
                 >
-                  <div className="aspect-[3/4] overflow-hidden">
+                  <div className="overflow-hidden">
                     <img
                       src={photo.url}
                       alt={photo.text || "Работа из портфолио"}
