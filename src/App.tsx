@@ -9,6 +9,8 @@ import Portfolio from "./pages/Portfolio";
 import Reviews from "./pages/Reviews";
 import Order from "./pages/Order";
 import Contacts from "./pages/Contacts";
+import Admin from "./pages/Admin";
+import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +28,8 @@ const App = () => (
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/order" element={<Order />} />
             <Route path="/contacts" element={<Contacts />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
