@@ -65,6 +65,7 @@ const staticPortfolio = [
 
 const Portfolio = () => {
   const [photos, setPhotos] = useState<VkPhoto[]>([]);
+  const [dbItems, setDbItems] = useState<{ id: string; url: string; text: string; category: Category }[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedPhoto, setSelectedPhoto] = useState<{ url: string; text: string } | null>(null);
@@ -89,7 +90,26 @@ const Portfolio = () => {
       }
     };
 
+    const fetchDbItems = async () => {
+      const { data } = await supabase
+        .from("portfolio_items")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (data) {
+        setDbItems(
+          data.map((item: any) => ({
+            id: item.id,
+            url: item.image_url,
+            text: item.title,
+            category: item.category as Category,
+          }))
+        );
+      }
+    };
+
     fetchPhotos();
+    fetchDbItems();
   }, []);
 
   const allItems = [
