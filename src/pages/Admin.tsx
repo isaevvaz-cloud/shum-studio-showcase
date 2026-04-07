@@ -242,6 +242,8 @@ const Admin = () => {
             </div>
           )}
         </div>
+
+        <AdminReviews />
       </div>
     </div>
   );
