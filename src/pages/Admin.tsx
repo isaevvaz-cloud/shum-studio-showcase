@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Trash2, LogOut, Upload, Loader2 } from "lucide-react";
+import AdminReviews from "@/components/admin/AdminReviews";
 
 interface PortfolioItem {
   id: string;
