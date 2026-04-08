@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import { ArrowRight, Palette, Monitor, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "@/components/AnimatedSection";
-import heroBg from "@/assets/hero-bg.jpg";
-import heroMockup from "@/assets/hero-design-mockup.png";
 import portfolio1 from "@/assets/portfolio-1.jpg";
 import portfolio2 from "@/assets/portfolio-2.jpg";
 import portfolio3 from "@/assets/portfolio-3.jpg";
+import portfolio4 from "@/assets/portfolio-4.jpg";
+import portfolio5 from "@/assets/portfolio-5.jpg";
 
 const services = [
   {
@@ -34,50 +34,33 @@ const stats = [
   { value: "98%", label: "Довольных клиентов" },
 ];
 
+const heroCards = [
+  { img: portfolio1, label: "Инфографика", rotate: -6, x: 0, y: 0 },
+  { img: portfolio2, label: "Стримы", rotate: 4, x: 40, y: -30 },
+  { img: portfolio3, label: "Баннеры", rotate: -3, x: -20, y: 50 },
+  { img: portfolio4, label: "Креативы", rotate: 7, x: 60, y: 30 },
+  { img: portfolio5, label: "Дизайн", rotate: -5, x: 10, y: -50 },
+];
+
 const Index = () => {
   return (
     <div>
       {/* Hero */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-background">
-          {/* Decorative grid */}
           <div className="absolute inset-0 opacity-[0.04]" style={{
             backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
             backgroundSize: '80px 80px'
           }} />
-          {/* Floating design shapes */}
-          <motion.div
-            className="absolute top-[15%] right-[10%] w-40 h-40 rounded-full border border-primary/10"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          />
-          <motion.div
-            className="absolute top-[60%] right-[20%] w-24 h-24 border border-primary/10 rotate-45"
-            animate={{ rotate: [45, 405] }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          />
           <motion.div
             className="absolute top-[25%] left-[60%] w-64 h-64 rounded-full bg-primary/[0.03] blur-3xl"
             animate={{ scale: [1, 1.2, 1], opacity: [0.03, 0.06, 0.03] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div
-            className="absolute bottom-[20%] left-[5%] w-32 h-32 rounded-full border border-primary/10"
-            animate={{ y: [-10, 10, -10] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          />
-          {/* Pen tool path */}
-          <svg className="absolute top-[30%] left-[15%] w-48 h-48 opacity-[0.06] text-primary" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
-            <path d="M10 90 L50 10 L90 90 Z" />
-            <circle cx="50" cy="10" r="3" />
-            <circle cx="10" cy="90" r="3" />
-            <circle cx="90" cy="90" r="3" />
-          </svg>
-          {/* Gradient mesh accent */}
           <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-primary/[0.05] via-transparent to-transparent" />
         </div>
         <div className="container relative z-10 py-20">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -104,20 +87,44 @@ const Index = () => {
               </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-              className="flex-1 hidden lg:flex justify-center"
-            >
-              <img
-                src={heroMockup}
-                alt="Графический дизайн — рабочее пространство"
-                width={560}
-                height={560}
-                className="w-full max-w-[560px] drop-shadow-2xl"
-              />
-            </motion.div>
+            {/* Floating portfolio cards */}
+            <div className="flex-1 hidden lg:block relative h-[500px] min-w-[400px]">
+              {heroCards.map((card, i) => (
+                <motion.div
+                  key={card.label}
+                  initial={{ opacity: 0, scale: 0.7, rotate: 0 }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    rotate: card.rotate,
+                    y: [card.y, card.y - 8, card.y],
+                  }}
+                  transition={{
+                    opacity: { duration: 0.6, delay: 0.2 + i * 0.15 },
+                    scale: { duration: 0.6, delay: 0.2 + i * 0.15 },
+                    rotate: { duration: 0.6, delay: 0.2 + i * 0.15 },
+                    y: { duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 },
+                  }}
+                  className="absolute rounded-xl overflow-hidden border border-border/50 shadow-2xl shadow-primary/5 bg-card"
+                  style={{
+                    width: i === 0 ? 220 : i === 1 ? 180 : i === 2 ? 160 : i === 3 ? 140 : 150,
+                    left: `${10 + i * 18}%`,
+                    top: `${15 + (i % 3) * 25}%`,
+                    zIndex: 5 - i,
+                  }}
+                >
+                  <img
+                    src={card.img}
+                    alt={card.label}
+                    loading="lazy"
+                    className="w-full aspect-[3/4] object-cover"
+                  />
+                  <div className="px-3 py-2">
+                    <span className="text-xs font-medium text-primary">{card.label}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
