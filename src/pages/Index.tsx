@@ -77,31 +77,48 @@ const Index = () => {
           <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-primary/[0.05] via-transparent to-transparent" />
         </div>
         <div className="container relative z-10 py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="max-w-3xl"
-          >
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight">
-              Создаём
-              <br />
-              <span className="text-gradient">визуальный шум</span>
-            </h1>
-            <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-xl">
-              Дизайн-студия SHUM — инфографика для маркетплейсов, дизайн стримов и баннеров, которые привлекают внимание и продают.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button asChild size="lg" className="font-display font-semibold text-base px-8">
-                <Link to="/order">
-                  Заказать дизайн <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="font-display font-semibold text-base px-8 border-border hover:bg-secondary">
-                <Link to="/portfolio">Портфолио</Link>
-              </Button>
-            </div>
-          </motion.div>
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="max-w-3xl lg:max-w-xl flex-shrink-0"
+            >
+              <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight">
+                Создаём
+                <br />
+                <span className="text-gradient">визуальный шум</span>
+              </h1>
+              <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-xl">
+                Дизайн-студия SHUM — инфографика для маркетплейсов, дизайн стримов и баннеров, которые привлекают внимание и продают.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Button asChild size="lg" className="font-display font-semibold text-base px-8">
+                  <Link to="/order">
+                    Заказать дизайн <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="font-display font-semibold text-base px-8 border-border hover:bg-secondary">
+                  <Link to="/portfolio">Портфолио</Link>
+                </Button>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+              className="flex-1 hidden lg:flex justify-center"
+            >
+              <img
+                src={heroMockup}
+                alt="Графический дизайн — рабочее пространство"
+                width={560}
+                height={560}
+                className="w-full max-w-[560px] drop-shadow-2xl"
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 
