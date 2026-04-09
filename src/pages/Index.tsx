@@ -3,11 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Palette, Monitor, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "@/components/AnimatedSection";
-import portfolio1 from "@/assets/portfolio-1.jpg";
-import portfolio2 from "@/assets/portfolio-2.jpg";
-import portfolio3 from "@/assets/portfolio-3.jpg";
-import portfolio4 from "@/assets/portfolio-4.jpg";
-import portfolio5 from "@/assets/portfolio-5.jpg";
+import heroInfographics from "@/assets/hero-infographics.jpg";
 
 const services = [
   {
@@ -87,52 +83,33 @@ const Index = () => {
               </div>
             </motion.div>
 
-            {/* Floating portfolio cards */}
-            <div className="flex-1 hidden lg:block relative h-[500px] min-w-[400px]">
-              {heroCards.map((card, i) => (
-                <motion.div
-                  key={card.label}
-                  initial={{ opacity: 0, scale: 0.7, rotate: 0 }}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                    rotate: card.rotate,
-                    y: [card.y, card.y - 8, card.y],
-                  }}
-                  whileHover={{
-                    scale: 1.08,
-                    zIndex: 10,
-                    boxShadow: "0 0 25px 8px hsl(var(--primary) / 0.3), 0 0 60px 15px hsl(var(--primary) / 0.1)",
-                    borderColor: "hsl(var(--primary) / 0.6)",
-                  }}
-                  transition={{
-                    opacity: { duration: 0.6, delay: 0.2 + i * 0.15 },
-                    scale: { duration: 0.6, delay: 0.2 + i * 0.15 },
-                    rotate: { duration: 0.6, delay: 0.2 + i * 0.15 },
-                    y: { duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 },
-                    boxShadow: { duration: 0.3 },
-                    borderColor: { duration: 0.3 },
-                  }}
-                  className="absolute rounded-xl overflow-hidden border border-border/50 shadow-2xl shadow-primary/5 bg-card cursor-pointer"
-                  style={{
-                    width: i === 0 ? 220 : i === 1 ? 180 : i === 2 ? 160 : i === 3 ? 140 : 150,
-                    left: `${10 + i * 18}%`,
-                    top: `${15 + (i % 3) * 25}%`,
-                    zIndex: 5 - i,
-                  }}
-                >
-                  <img
-                    src={card.img}
-                    alt={card.label}
-                    loading="lazy"
-                    className="w-full aspect-[3/4] object-cover"
-                  />
-                  <div className="px-3 py-2">
-                    <span className="text-xs font-medium text-primary">{card.label}</span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            {/* Hero infographics showcase */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              whileHover={{
+                scale: 1.03,
+                boxShadow: "0 0 40px 12px hsl(var(--primary) / 0.25), 0 0 80px 20px hsl(var(--primary) / 0.08)",
+              }}
+              transition={{
+                opacity: { duration: 0.8, delay: 0.3 },
+                scale: { duration: 0.8, delay: 0.3 },
+                y: { duration: 0.8, delay: 0.3 },
+                boxShadow: { duration: 0.3 },
+              }}
+              className="flex-1 hidden lg:block relative cursor-pointer"
+            >
+              <div className="rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-primary/10 bg-card">
+                <img
+                  src={heroInfographics}
+                  alt="Инфографика для маркетплейсов — примеры работ"
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-3 -right-3 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-display font-semibold shadow-lg">
+                Инфографика для маркетплейсов
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
