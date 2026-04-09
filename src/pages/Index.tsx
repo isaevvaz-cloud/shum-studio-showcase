@@ -30,13 +30,6 @@ const stats = [
   { value: "98%", label: "Довольных клиентов" },
 ];
 
-const heroCards = [
-  { img: portfolio1, label: "Инфографика", rotate: -6, x: 0, y: 0 },
-  { img: portfolio2, label: "Стримы", rotate: 4, x: 40, y: -30 },
-  { img: portfolio3, label: "Баннеры", rotate: -3, x: -20, y: 50 },
-  { img: portfolio4, label: "Креативы", rotate: 7, x: 60, y: 30 },
-  { img: portfolio5, label: "Дизайн", rotate: -5, x: 10, y: -50 },
-];
 
 const Index = () => {
   return (
