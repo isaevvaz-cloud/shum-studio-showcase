@@ -99,13 +99,21 @@ const Index = () => {
                     rotate: card.rotate,
                     y: [card.y, card.y - 8, card.y],
                   }}
+                  whileHover={{
+                    scale: 1.08,
+                    zIndex: 10,
+                    boxShadow: "0 0 25px 8px hsl(var(--primary) / 0.3), 0 0 60px 15px hsl(var(--primary) / 0.1)",
+                    borderColor: "hsl(var(--primary) / 0.6)",
+                  }}
                   transition={{
                     opacity: { duration: 0.6, delay: 0.2 + i * 0.15 },
                     scale: { duration: 0.6, delay: 0.2 + i * 0.15 },
                     rotate: { duration: 0.6, delay: 0.2 + i * 0.15 },
                     y: { duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 },
+                    boxShadow: { duration: 0.3 },
+                    borderColor: { duration: 0.3 },
                   }}
-                  className="absolute rounded-xl overflow-hidden border border-border/50 shadow-2xl shadow-primary/5 bg-card"
+                  className="absolute rounded-xl overflow-hidden border border-border/50 shadow-2xl shadow-primary/5 bg-card cursor-pointer"
                   style={{
                     width: i === 0 ? 220 : i === 1 ? 180 : i === 2 ? 160 : i === 3 ? 140 : 150,
                     left: `${10 + i * 18}%`,
