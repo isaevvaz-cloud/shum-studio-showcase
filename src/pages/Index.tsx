@@ -4,6 +4,9 @@ import { ArrowRight, Palette, Monitor, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "@/components/AnimatedSection";
 import heroInfographics from "@/assets/hero-infographics.jpg";
+import portfolio1 from "@/assets/portfolio-1.jpg";
+import portfolio2 from "@/assets/portfolio-2.jpg";
+import portfolio3 from "@/assets/portfolio-3.jpg";
 
 const services = [
   {
